@@ -1,0 +1,21 @@
+
+## this plain code for converting pvalue of the peak
+
+## calculate p-values
+.score2pval <- function(score, null){
+  
+  scores <- c(lapply(score, function(y) 
+            as.numeric(y[!is.na(y)])), recursive=TRUE)
+  pval <- pnorm(scores, mean=null["mean"], sd=null["sd"], lower.tail=FALSE)
+  pval <- p.adjust(pval, "BH")
+  ## split back into chromosomes
+  len <- sapply(score, function(y) sum(!is.na(y)))
+  end <- cumsum(len)
+  start <- c(1, end[-length(end)]+1)
+  
+  result <- vector(mode="list", length(score))
+  for(i in 1:length(result)){
+    result[[i]][!is.na(score[[i]])] <- pval[start[i]:end[i]]
+  }
+  result
+}
