@@ -1,0 +1,9 @@
+## this R script for reading peak from the genes
+
+readPeak<-function(Replicate, ...){ 
+  peak<-list()
+  for(i in 1: nrow(Replicate)){
+    peak<-Replicate[i,]
+  }
+  return(peak)
+}
