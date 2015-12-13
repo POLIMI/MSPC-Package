@@ -7,3 +7,6 @@ readPeak<-function(Replicate, ...){
   }
   return(peak)
 }
+
+
+# use lapply function to implement pipe line processing for all peak from the replicates
