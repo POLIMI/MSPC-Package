@@ -1,6 +1,7 @@
 ## read parent folder of genome
 
 readGenome<-function(parentFolder, fileType="bed"){
+  parentFolder<-list.files(path, pattern, full.names=F)
   for(i in 1: length(parentFolder){
     if(fileType=="bed")
       Replicate<-loadReplicate(parentFolder[i])
@@ -8,7 +9,7 @@ readGenome<-function(parentFolder, fileType="bed"){
   return(Replicate)
 }
 
-## load replicate
+## load gene replicate
 
 library(rtracklayer)
 
