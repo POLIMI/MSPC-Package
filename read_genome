@@ -1,0 +1,30 @@
+## read parent folder of genome
+
+readGenome<-function(parentFolder, fileType="bed"){
+  for(i in 1: length(parentFolder){
+    if(fileType=="bed")
+      Replicate<-loadReplicate(parentFolder[i])
+  }
+  return(Replicate)
+}
+
+## load replicate
+
+library(rtracklayer)
+
+loadReplicate <- function(bedFile) {
+  if (!file.exists(bedFile)) {
+    stop("Can't find BED file: ",bedFile);
+  }
+  Replicate<-import.bed(bedFile)
+  Replicate<-as(Replicate, "data.frame")
+  Replicate<-Replicate[,1:7]
+  names(Replicate) <- c("chrom","chromStart","chromEnd","witdth", "strand", "name", "score");
+  # Check columns.
+  for (col in c("chrom","chromStart","chromEnd", "witdth", "strand","name", "score")) {
+    if (!col %in% names(Replicate)) {
+      stop(sprintf("error in peaks data frame: no column named '%s'",col));
+    }
+  }
+  return(Replicate)
+}
